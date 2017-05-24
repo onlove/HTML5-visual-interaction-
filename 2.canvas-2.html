@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        #canvas{
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById('canvas');
+
+        canvas.width = 120;
+        canvas.height = 300;
+
+        var cxt = canvas.getContext('2d');
+        var num = 0;
+
+        var setArr = [];
+
+        setInterval(function () {
+            cxt.clearRect(0, 0, canvas.width, canvas.height);
+
+            for(var i = 0; i < setArr.length; i++) {
+                setArr[i].num += 5;
+                setArr[i].x = setArr[i].startX - Math.sin(setArr[i].num * Math.PI / 180) * setArr[i].step;
+                setArr[i].y = setArr[i].startY - (setArr[i].num * Math.PI / 180) * setArr[i].step;
+
+                if(setArr[i].y < 20) {
+                    setArr.splice(i, 1)
+                }
+            }
+
+            for(var i = 0; i < setArr.length; i++) {
+                cxt.fillStyle = 'rgba('+ setArr[i].r + ',' + setArr[i].g +','+ setArr[i].b +','+  setArr[i].a +')'
+                cxt.beginPath();
+                cxt.moveTo(setArr[i].x, setArr[i].y);
+
+                cxt.arc(setArr[i].x, setArr[i].y, setArr[i].radius, 0, 2 * Math.PI );
+                cxt.closePath();
+                cxt.fill();
+            }
+        }, 1000/60);
+
+
+        setInterval(function () {
+            var x = Math.random() * canvas.width;
+            var y = canvas.height - 10;
+            var radius = Math.random() * 6 + 2;
+            var r = Math.round(Math.random() * 255);
+            var g = Math.round(Math.random() * 255);
+            var b = Math.round(Math.random() * 255);
+            var a = 1;
+
+            var startX = x;
+            var startY = y;
+
+            var num = 0;
+            var step = Math.random() * 10 + 20;
+
+            setArr.push({
+                x: x,
+                y: y,
+                radius: radius,
+                r: r,
+                g: g,
+                b: b,
+                a: a,
+                num: num,
+                step: step,
+                startX: x,
+                startY: y
+            })
+
+        }, 160)
+    }
+</script>
+</body>
+</html>

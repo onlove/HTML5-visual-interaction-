@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        #canvas{
+            width: 200px;
+            height: 200px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas');
+            var cxt = canvas.getContext('2d');
+            var num = 0;
+
+
+            cxt.strokeRect(0, 0, 100, 100);
+
+            setInterval(function () {
+                cxt.clearRect(0, 0, canvas.width, canvas.height)
+                num++;
+                cxt.strokeRect(num, num, 100, 100);
+            }, 30)
+        }
+    </script>
+</body>
+</html>

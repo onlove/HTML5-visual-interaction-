@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            position: absolute;
+            left: 50px;
+            top: 300px;
+            width: 20px;
+            height: 20px;
+            background: red;
+        }
+        .box{
+            position: absolute;
+            border:1px solid #000000;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+
+</div>
+
+<script>
+    console.log(30 * Math.PI / 180);
+
+
+    window.onload = function () {
+        var oDiv = document.getElementById('div1');
+        var startX = oDiv.offsetLeft;
+        var startY = oDiv.offsetTop;
+        var num = 0;
+        var step = 100;
+
+        setInterval(function () {
+            num++;
+            oDiv.style.left = startX + num  * Math.PI / 180 * step + 'px';
+            oDiv.style.top = startY - Math.sin(num * Math.PI / 180) * step + 'px';
+
+            var oBox = document.createElement('div');
+            oBox.className = 'box';
+            oBox.style.left = oDiv.offsetLeft + 'px';
+            oBox.style.top = oDiv.offsetTop + 'px';
+            document.body.appendChild(oBox);
+        }, 30)
+    }
+
+</script>
+</body>
+</html>

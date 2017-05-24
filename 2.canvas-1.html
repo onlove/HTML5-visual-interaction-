@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        #canvas{
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById('canvas');
+
+        canvas.width = 600;
+        canvas.height = 600;
+
+        var cxt = canvas.getContext('2d');
+        var num = 0;
+
+        var setArr = [];
+
+        setInterval(function () {
+            cxt.clearRect(0, 0, canvas.width, canvas.height);
+
+            for(var i = 0; i < setArr.length; i++) {
+                setArr[i].radius += 1;
+                setArr[i].a -= 0.01;
+                if(setArr[i].a <= 0) {
+                    setArr.splice(i, 1);
+                }
+            }
+
+            for(var i = 0; i < setArr.length; i++) {
+                cxt.fillStyle = 'rgba('+ setArr[i].r + ',' + setArr[i].g +','+ setArr[i].b +','+  setArr[i].a +')'
+                cxt.beginPath();
+                cxt.moveTo(setArr[i].x, setArr[i].y);
+
+                cxt.arc(setArr[i].x, setArr[i].y, setArr[i].radius, 0, 2 * Math.PI );
+                cxt.closePath();
+                cxt.fill();
+            }
+        }, 1000/60);
+
+
+        setInterval(function () {
+            var x = Math.random() * canvas.width;
+            var y = Math.random() * canvas.height;
+            var radius = 10;
+            var r = Math.round(Math.random() * 255);
+            var g = Math.round(Math.random() * 255);
+            var b = Math.round(Math.random() * 255);
+            var a = 1;
+
+            setArr.push({
+                x: x,
+                y: y,
+                radius: radius,
+                r: r,
+                g: g,
+                b: b,
+                a: a
+            })
+
+        }, 500)
+    }
+</script>
+</body>
+</html>
